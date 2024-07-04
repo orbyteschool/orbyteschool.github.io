@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="ORBYTE">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+
+  <title>ORBYTE</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      color: #fff;
+    }
+
+    .logo {
+      max-width:500px;
+      margin-bottom: 30px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .loader {
+      border: 8px solid #5D66D0;
+      border-radius: 50%;
+      border-top: 8px solid #fff;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    .welcome-text {
+      font-size: 35px;
+      color: #5D66D0;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .loading-text {
+      font-size: 24px;
+      color: #5D66D0;
+      margin-top: 20px;
+    }
+
+    .background-graphic {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-graphic"></div>
+  <div class="container">
+    <img class="logo" src="https://i.ibb.co/n0PGWfB/ORBYTE.png" alt="logo">
+    <div class="welcome-text">Welcome...</div>
+    <div class="loader"></div>
+    <div class="loading-text" id="loading-text">Loading 0%</div>
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
+
+  <script>
+
+
+    // Loading animation logic
+    let loadingText = document.getElementById('loading-text');
+    let progress = 0;
+    let interval = setInterval(() => {
+      if (progress < 100) {
+        progress++;
+        loadingText.textContent = `Loading ${progress}%`;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50); // Adjust the interval as needed
+  </script>
+
+  <!-- Service worker for PWA functionality -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('flutter_service_worker.js?v=1784696144');
+      });
+    }
+  </script>
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.4.456/pdf.min.js"></script>
+  <script src="main.dart.js?version=27" type="application/javascript"></script>
+</body>
+</html>
